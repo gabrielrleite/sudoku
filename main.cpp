@@ -16,18 +16,18 @@
 using namespace std;
 
 int main() {
-    int opcaoJogo, numeroAleatorio, sortPos, i, j, linJogo, colJogo, numJogo, tentativas, vidas = 3;
-    char matJogo[TAM][TAM], matGabarito[TAM][TAM];
-    char matPrincipal[TAM][TAM] = {
-    {'4', '9', '5', '2', '8', '7', '3', '6', '1'},
-    {'7', '2', '8', '6', '1', '3', '4', '9', '5'},
-    {'3', '6', '1', '9', '5', '4', '7', '2', '8'},
-    {'6', '5', '3', '8', '4', '9', '2', '1', '7'},
-    {'9', '8', '4', '1', '7', '2', '6', '5', '3'},
-    {'2', '1', '7', '5', '3', '6', '9', '8', '4'},
-    {'1', '3', '2', '4', '6', '5', '8', '7', '9'},
-    {'5', '4', '6', '7', '9', '8', '1', '3', '2'},
-    {'8', '7', '9', '3', '2', '1', '5', '4', '6'}};
+    int opcaoJogo, numeroAleatorio, sortPos, i, j, linJogo, colJogo, numJogo, tentativas, vidas = 3, matJogo[TAM][TAM], matGabarito[TAM][TAM], matPrincipal[TAM][TAM] = {
+    {4, 9, 5, 2, 8, 7, 3, 6, 1},
+    {7, 2, 8, 6, 1, 3, 4, 9, 5},
+    {3, 6, 1, 9, 5, 4, 7, 2, 8},
+    {6, 5, 3, 8, 4, 9, 2, 1, 7},
+    {9, 8, 4, 1, 7, 2, 6, 5, 3},
+    {2, 1, 7, 5, 3, 6, 9, 8, 4},
+    {1, 3, 2, 4, 6, 5, 8, 7, 9},
+    {5, 4, 6, 7, 9, 8, 1, 3, 2},
+    {8, 7, 9, 3, 2, 1, 5, 4, 6}
+};
+    
     srand(time(NULL));
     setlocale(LC_ALL, "PORTUGUESE");
     do {
@@ -45,7 +45,7 @@ int main() {
                 system("cls");
                 for(i=0; i<TAM; i++) {
                     for(j=0; j<TAM; j++) {
-                        matJogo[i][j] = '-';
+                        matJogo[i][j] = 0;
                     }
                 }
                 switch(numeroAleatorio) { // Define o Gabarito
@@ -82,7 +82,7 @@ int main() {
                 while(sortPos < 41) { // Sorteia 41 posições diferentes para pré-preencher
                     i = rand() % 9;
                     j = rand() % 9;
-                    if(matJogo[i][j] == '-') {
+                    if(matJogo[i][j] == 0) {
                         matJogo[i][j] = matGabarito[i][j];
                         sortPos++;
                     }
@@ -90,7 +90,11 @@ int main() {
                 for(i=0; i<TAM; i++) {
                     cout<<"| ";
                     for(j=0; j<TAM; j++) {
-                        cout<<matJogo[i][j]<<" | ";
+                        if(matJogo[i][j] == 0) {
+                            	cout<<"-"<<" | ";
+                            } else {
+                            	cout<<matJogo[i][j]<<" | ";
+                        	}
                     }
                     cout<<endl;
                 }
@@ -104,19 +108,19 @@ int main() {
                         cin>>colJogo;
                         if(colJogo <= 9 && colJogo > 0) {
                                 colJogo -= 1;
-                                if(matJogo[linJogo][colJogo] == '-') {
+                                if(matJogo[linJogo][colJogo] == 0) {
                                         cout<<"Insira um número de 1 a 9: ";
                                         cin>>numJogo;
                                         if(numJogo > 0 && numJogo <= 9) {
                                             tentativas++;
-                                            if(matGabarito[linJogo][colJogo] == numJogo + '0') {
-                                                matJogo[linJogo][colJogo] = numJogo + '0';
+                                            if(matGabarito[linJogo][colJogo] == numJogo) {
+                                                matJogo[linJogo][colJogo] = numJogo;
                                                 system("cls");
                                                 cout<<"Número Correto. "<<vidas<<" vidas restantes. ("<<tentativas<<" tentativas)"<<endl;
                                             } else {
                                                 system("cls");
-                                                cout<<"Número Errado. "<<vidas<<" vidas restantes. ("<<tentativas<<" tentativas)"<<endl;
                                                 vidas--;
+                                                cout<<"Número Errado. "<<vidas<<" vidas restantes. ("<<tentativas<<" tentativas)"<<endl;
                                             }
                                         } else {
                                             system("cls");
@@ -137,7 +141,11 @@ int main() {
                     for(i=0; i<TAM; i++) {
                         cout<<"| ";
                         for(j=0; j<TAM; j++) {
-                            cout<<matJogo[i][j]<<" | ";
+                            if(matJogo[i][j] == 0) {
+                            	cout<<"-"<<" | ";
+                            } else {
+                            	cout<<matJogo[i][j]<<" | ";
+                        	}
                         }
                         cout<<endl;
                     }
